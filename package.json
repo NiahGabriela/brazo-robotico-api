@@ -1,0 +1,19 @@
+{
+  "name": "brazo-robotico-api",
+  "version": "1.0.0",
+  "description": "api del brazo robotico",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NiahGabriela/brazo-robotico-api.git"
+  },
+  "author": "pilar & diana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NiahGabriela/brazo-robotico-api/issues"
+  },
+  "homepage": "https://github.com/NiahGabriela/brazo-robotico-api#readme"
+}
