@@ -2,7 +2,7 @@
   "name": "brazo-robotico-api",
   "version": "1.0.0",
   "description": "api del brazo robotico",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/NiahGabriela/brazo-robotico-api/issues"
   },
-  "homepage": "https://github.com/NiahGabriela/brazo-robotico-api#readme"
+  "homepage": "https://github.com/NiahGabriela/brazo-robotico-api#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
 }
