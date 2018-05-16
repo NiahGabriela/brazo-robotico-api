@@ -12,4 +12,4 @@ module.exports = class User
 }
 
 //se ecarga del modelo del negocio y mandar
-todo a la base de datos
+//todo a la base de datos

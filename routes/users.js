@@ -1,10 +1,11 @@
 const { Router } = require ('express');
-const ctrl = require ('../controllers/users');
+//const ctrl = require ('../controllers/users');
+const middleware = require('../middlewares');
 const usersRouter = Router();
 
 // todos los usuarios para que el admin los consulte
-usersRouter.get('/', (req, res) => {
-  res.send('This is the list of all users');
+usersRouter.get('/', middleware.includeTime, (req, res) => {
+  res.send('This is the list of all users' + req.myTime + req.token);
 });
 
 //información de un usuario en especifico, para su perfil o para que el admin lo consulte
