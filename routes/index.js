@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const mysql = require('mysql');
 const routes = Router();
 const bodyParser = require('body-parser');
 const usersRouter = require ('./users');
@@ -11,6 +12,7 @@ routes.use(bodyParser.json());
 
 //agregar todos los modulos que haya creado
 routes.get('/', (req, res) => res.send ('El home'));
+routes.get('/database', (req, res) => res.send ('El database chido'));
 routes.use('/users', usersRouter);
 routes.use('/games', gamesRouter);
 routes.use('/movements', movementsRouter);

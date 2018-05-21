@@ -25,3 +25,8 @@ usersRouter.post('/', (req, res) => {
 });
 
 module.exports = usersRouter;
+
+
+//JWT para los tokens, para express js y como usarlo
+//no auh? algo asi para el postman |
+// y subir la colección de postman al readme
