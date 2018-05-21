@@ -1,10 +1,10 @@
 const { Router } = require('express');
-const mysql = require('mysql');
 const routes = Router();
 const bodyParser = require('body-parser');
 const usersRouter = require ('./users');
 const gamesRouter = require ('./games');
 const movementsRouter = require ('./movements');
+const dbRouter = require ('../database');
 
 //usando el bodyParser para el middleware
 routes.use(bodyParser.urlencoded({ extended: false}));
@@ -12,7 +12,7 @@ routes.use(bodyParser.json());
 
 //agregar todos los modulos que haya creado
 routes.get('/', (req, res) => res.send ('El home'));
-routes.get('/database', (req, res) => res.send ('El database chido'));
+routes.use('/database', dbRouter);
 routes.use('/users', usersRouter);
 routes.use('/games', gamesRouter);
 routes.use('/movements', movementsRouter);
