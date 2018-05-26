@@ -4,9 +4,9 @@ const dbRouter = Router();
 
 let connection = mysql.createConnection({
   host     : 'localhost',
-  user     : 'root',
-  password : 'tamarindo',
-  database : 'my_db'
+  user     : 'pollo',
+  password : 'Don$hirito80',
+  database : 'mydb'
 });
 
 connection.connect(function(err) {
