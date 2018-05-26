@@ -4,9 +4,9 @@ const dbRouter = Router();
 
 let connection = mysql.createConnection({
   host     : 'localhost',
-  user     : 'root',
-  password : 'tamarindo',
-  database : 'my_db'
+  user     : 'pollo',
+  password : 'Don$hirito80',
+  database : 'mydb'
 });
 
 connection.connect(function(err) {
@@ -15,16 +15,8 @@ connection.connect(function(err) {
     return;
   }
 
-  console.log('connected as id ' + connection.threadId);
+  //console.log('connected as id ' + connection.threadId);
 });
 
-// connection.connect();
-//
-// connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-//   if (error) throw error;
-//   console.log('The solution is: ', results[0].solution);
-// });
-
-// connection.end();
-
+// aqui solo van las peticiones a la base de datos
 module.exports = dbRouter;
