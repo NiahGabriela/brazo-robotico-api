@@ -1,4 +1,6 @@
+const { Router } = require ('express');
 var db = require('../database');
+const usersModel = Router();
 // module.exports = class User
 // {
 //   constructor(userName, email, password)
@@ -12,7 +14,7 @@ var db = require('../database');
 //   }
 // }
 
-exports.create = function(username, email, password) { //acomodar bien la funcion
+usersModel.create = function(username, email, password) { //acomodar bien la funcion
   var age,gender,active,permisosChidos;
   age=null; gender=null; active=null; permisosChidos=false;
   var response = db.INSERT(`User`, //nombre de la base de datos
@@ -23,23 +25,36 @@ exports.create = function(username, email, password) { //acomodar bien la funcio
   return response;
 };
 
-  exports.listAll = function(){
+usersModel.listAll = function(){
     var response = db.SELECT(`User`, //la tabla
         `name`,// la columna
         null, //no le pasamos ningun valor
         null,
         `*`);
       return response;
-  };
+};
 
-  exports.getById = function(condition){
+usersModel.getById = function(condition){
     var response = db.SELECT(`User`, //la tabla
         `name,age,gender,email`, // columnas de la base de la tabla que quiero recuperar
         null, //nada porque no le vamos a modificar nada
         `idUser = ${condition}`,
         `*`);
       return response;
-  }
+};
+
+// usersModel.blockUser = function(condition,active){
+//   var response = db.UPDATE(`User`, //la tabla
+//       `active`, // columnas de la base de la tabla que quiero recuperar
+//       null, //nada porque no le vamos a modificar nada
+//       `idUser = ${condition}`,
+//       `*`);
+//     return response;
+//
+// };
+
+
+module.exports = usersModel;
 
 //se ecarga del modelo del negocio y mandar
 //todo a la base de datos
