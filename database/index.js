@@ -20,16 +20,28 @@ connection.connect(function(err) {
 
 // aqui solo van las peticiones a la base de datos
 
-exports.INSERT = function(table_name, columns, values, contition = null, returning = null) {
+exports.INSERT = function(table_name, columns, values, condition = null, returning = null) {
   var sql = ``;
   sql += `INSERT INTO ${table_name} (${columns})`;
   sql += ` VALUES (${values})`;
-  if(contition !== null)
-    sql += ` WHERE ${contition}`;
-  if(returning !== null)
-    sql += ` RETURNING ${returning}`;
+  if(condition !== null)
+    sql += ` WHERE ${condition}`;
+  // if(returning !== null)
+  //   sql += ` RETURNING ${returning}`;
 
-  const resp = client.query(sql);
+  const resp = client.query(sql); //falta aqui ver como conectar a la base de datos
+  return resp;
+}
+
+exports.SELECT = function(table_name,columns,values=null, condition = null, returning = null)
+{
+  var sql = ``;
+  sql += `SELECT ${columns} FROM (${table_name})`;
+  if(condition !== null)
+    sql += ` WHERE ${condition}`;
+  // if(returning !== null)
+  //   sql += ` RETURNING ${returning}`;
+  const resp = client.query(sql); //falta aqui ver como conectar a la base de datos ay que todavia no se como se hace eso
   return resp;
 }
 
