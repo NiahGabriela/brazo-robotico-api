@@ -16,10 +16,11 @@ const usersModel = Router();
 
 usersModel.create = function(username, email, password) { //acomodar bien la funcion
   var age,gender,active,permisosChidos;
-  age=null; gender=null; active=null; permisosChidos=false;
+  age=15; gender="F"; active=1; permisosChidos=0; //para hacer insert de los datos nulos la DB se queja si los dejas en nulos por eso tiene
+  //valores por defecto que parecen reales
   var response = db.INSERT(`User`, //nombre de la base de datos
-  `name,age,gender,email,active,permisosChidos`, // columnas de la base de la tabla
-  `\'${username}\',\'${age}\',\'${gender}\',\'${email}\',\'${active}\',\'${password}\'`, //valores para rellenar
+  `name,age,gender,email,active,permisosChidos,password`, // columnas de la base de la tabla
+  `\'${username}\',\'${age}\',\'${gender}\',\'${email}\',\'${active}\',\'${permisosChidos}\',\'${password}\'`, //valores para rellenar
   null,
   `*`);
   return response;

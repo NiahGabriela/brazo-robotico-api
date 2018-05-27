@@ -31,6 +31,7 @@ usersRouter.put('/:userId', (req, res) => {
 usersRouter.post('/', (req, res) => {
   // let resp = ctrl.create(req);
   // res.send(resp);
+  console.log('impresion para saber que esta funcionando');
   var response = ctrl.create(req, res);
 });
 

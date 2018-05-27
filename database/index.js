@@ -31,8 +31,8 @@ app.INSERT = function(table_name, columns, values, condition = null, returning =
     sql += ` WHERE ${condition}`;
   // if(returning !== null)
   //   sql += ` RETURNING ${returning}`;
-
-  const resp = client.query(sql); //falta aqui ver como conectar a la base de
+  const resp = connection.query(sql);
+  //const resp = client.query(sql); //falta aqui ver como conectar a la base de
   console.log(sql);
   return resp;
 }
@@ -57,8 +57,8 @@ app.SELECT = function(table_name,columns,values=null, condition = null, returnin
   if(condition !== null)
     sql += ` WHERE ${condition}`;
 
-console.log(sql);
-  connection.query(sql)
+  console.log(sql);
+  connection.query(sql);
   connection.end();
 
   // if (!err)
@@ -66,5 +66,7 @@ console.log(sql);
   // else
   //   console.log('Error while performing Query.');
     console.log(sql);
+    return resp;
 };
+
 module.exports = app;
