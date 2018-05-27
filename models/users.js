@@ -1,5 +1,5 @@
 const { Router } = require ('express');
-var db = require('../database');
+const db = require('../database');
 const usersModel = Router();
 // module.exports = class User
 // {
@@ -31,6 +31,7 @@ usersModel.listAll = function(){
         null, //no le pasamos ningun valor
         null,
         `*`);
+        console.log("holi");
       return response;
 };
 

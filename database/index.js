@@ -1,8 +1,11 @@
-const { Router } = require('express');
-const mysql = require('mysql');
-const dbRouter = Router();
+// const { Router } = require('express');
+// const mysql = require('mysql');
+// const dbRouter = Router();
+var express    = require("express");
+var mysql      = require('mysql');
+var app = express();
 
-let connection = mysql.createConnection({
+var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'pollo',
   password : 'Don$hirito80',
@@ -20,7 +23,7 @@ connection.connect(function(err) {
 
 // aqui solo van las peticiones a la base de datos
 
-exports.INSERT = function(table_name, columns, values, condition = null, returning = null) {
+app.INSERT = function(table_name, columns, values, condition = null, returning = null) {
   var sql = ``;
   sql += `INSERT INTO ${table_name} (${columns})`;
   sql += ` VALUES (${values})`;
@@ -29,20 +32,39 @@ exports.INSERT = function(table_name, columns, values, condition = null, returni
   // if(returning !== null)
   //   sql += ` RETURNING ${returning}`;
 
-  const resp = client.query(sql); //falta aqui ver como conectar a la base de datos
+  const resp = client.query(sql); //falta aqui ver como conectar a la base de
+  console.log(sql);
   return resp;
 }
 
-exports.SELECT = function(table_name,columns,values=null, condition = null, returning = null)
+// dbRouter.SELECT = function(table_name,columns,values=null, condition = null, returning = null)
+// {
+//   var sql = ``;
+//   sql += `SELECT ${columns} FROM (${table_name})`;
+//   if(condition !== null)
+//     sql += ` WHERE ${condition}`;
+//   // if(returning !== null)
+//   //   sql += ` RETURNING ${returning}`;
+//   const resp = client.query(sql); //falta aqui ver como conectar a la base de datos ay que todavia no se como se hace eso
+//   console.log(sql);
+//   return resp;
+// }
+
+app.SELECT = function(table_name,columns,values=null, condition = null, returning = null)
 {
   var sql = ``;
   sql += `SELECT ${columns} FROM (${table_name})`;
   if(condition !== null)
     sql += ` WHERE ${condition}`;
-  // if(returning !== null)
-  //   sql += ` RETURNING ${returning}`;
-  const resp = client.query(sql); //falta aqui ver como conectar a la base de datos ay que todavia no se como se hace eso
-  return resp;
-}
 
-module.exports = dbRouter;
+console.log(sql);
+  connection.query(sql)
+  connection.end();
+
+  // if (!err)
+  //   console.log('The solution is: ', rows);
+  // else
+  //   console.log('Error while performing Query.');
+    console.log(sql);
+};
+module.exports = app;
