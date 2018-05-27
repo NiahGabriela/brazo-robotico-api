@@ -21,10 +21,24 @@ exports.create = function(username, email, password) { //acomodar bien la funcio
   null,
   `*`);
   return response;
+};
+
+  exports.listAll = function(){
+    var response = db.SELECT(`User`, //la tabla
+        `name`,// la columna
+        null, //no le pasamos ningun valor
+        null,
+        `*`);
+      return response;
   };
 
-  exports.listAll = funcion(){
-
+  exports.getById = function(condition){
+    var response = db.SELECT(`User`, //la tabla
+        `name,age,gender,email`, // columnas de la base de la tabla que quiero recuperar
+        null, //nada porque no le vamos a modificar nada
+        `idUser = ${condition}`,
+        `*`);
+      return response;
   }
 
 //se ecarga del modelo del negocio y mandar

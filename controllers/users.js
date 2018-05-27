@@ -20,8 +20,13 @@ exports.create = function(req, res) {
   return response;
 };
 
-exports.listAll = funcion(req, res) {
+exports.listAll = function(req, res) {
   var response = model.listAll();
+  return response;
+}
+
+exports.getById = function(req, res) {
+  var response = model.getById(req.params.userId);
   return response;
 }
 

@@ -4,13 +4,16 @@ const middleware = require('../middlewares');
 const usersRouter = Router();
 
 // todos los usuarios para que el admin los consulte
-usersRouter.get('/', middleware.includeTime, (req, res) => {
+usersRouter.get('/', (req, res) => {
   var response = ctrl.listAll(req, res);
-  res.send('This is the list of all users' + req.myTime + req.token);
+  //el response debe traer una lista de todos los usuarios que se encuentran en la tabla
+  res.send('This is the list of all users');
 });
 
 //información de un usuario en especifico, para su perfil o para que el admin lo consulte
 usersRouter.get('/:userId', (req, res) => {
+  var response = ctrl.getById(req,res);
+  //la respuesta debe traer toda la info de un usuario que coincida con el id, el request debe trer el id desde el front 
   res.send(`This is the user ${req.params.userId}`);
 });
 
