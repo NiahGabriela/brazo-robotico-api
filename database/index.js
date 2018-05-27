@@ -19,4 +19,18 @@ connection.connect(function(err) {
 });
 
 // aqui solo van las peticiones a la base de datos
+
+exports.INSERT = function(table_name, columns, values, contition = null, returning = null) {
+  var sql = ``;
+  sql += `INSERT INTO ${table_name} (${columns})`;
+  sql += ` VALUES (${values})`;
+  if(contition !== null)
+    sql += ` WHERE ${contition}`;
+  if(returning !== null)
+    sql += ` RETURNING ${returning}`;
+
+  const resp = client.query(sql);
+  return resp;
+}
+
 module.exports = dbRouter;
