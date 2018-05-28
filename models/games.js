@@ -22,4 +22,13 @@ gamesModel.SelectGames = (req, res, callback) => {
   callback(err, data);
   });
 };
+
+gamesModel.SelectGameById = (req, res, callback) => {
+  let columns = '*';
+  let condition = 'gameLogId=\'' + req.params.gameId + '\'';
+  database.SELECT('gameLog', columns, condition, (err, data) => {
+  callback(err, data);
+  });
+};
+
 module.exports = gamesModel;

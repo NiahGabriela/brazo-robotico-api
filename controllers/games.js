@@ -13,4 +13,10 @@ gameController.SelectGames = (req, res, callback) => {
   });
 };
 
+gameController.GetGame = (req, res, callback) => {
+  model.SelectGameById(req, res, (err, data) => {
+  callback(err, data);
+  });
+};
+
 module.exports = gameController;
