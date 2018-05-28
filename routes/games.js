@@ -36,12 +36,13 @@ gamesRouter.post('/', middleware.includeTime, (req, res, callback) => {
 });
 
 //se asigna una articulación al usuario cuando ingresa a un juego
-gamesRouter.put('/:userId', (req, res) => {
+gamesRouter.post('/team', (req, res, callback) => {
+
   res.send(`Assigns an articulation for the user ${req.params.gameId} the articulation is `);
 });
 
 //se asigna a la partida si fue ganada o perdida cuando esta termina
-gamesRouter.put('/:gameId', (req, res) => {
+gamesRouter.put('/team/:gameId', (req, res) => {
   res.send(`The game ${req.params.gameId} has been lost or won `);
 });
 
