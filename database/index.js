@@ -37,6 +37,7 @@ app.INSERT = function(table_name, columns, values, condition = null, returning =
   return resp;
 }
 
+
 // dbRouter.SELECT = function(table_name,columns,values=null, condition = null, returning = null)
 // {
 //   var sql = ``;
