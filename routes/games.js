@@ -1,12 +1,17 @@
 const { Router } = require ('express');
 const gamesRouter = Router();
+const ctrl = require ('../controllers/games');
+const middleware = require('../middlewares');
 
 // todas las rutas para las partidas, pero no tiene que ver con las articulaciones,
 // es unicamente el id del juego y quienes participan en el
 
 //de todos los juegos jugados para que vea el admin chulo
-gamesRouter.get('/', (req, res) => {
-  res.send('This is the list of all games');
+gamesRouter.get('/', (req, res, callback) => {
+  ctrl.SelectGames(req, res, (err, data) => {
+  res.json(data);
+  console.log(data);
+  });
 });
 
 //De un juego en especifico para consulta del admin guapo
@@ -20,8 +25,11 @@ gamesRouter.get('/:userId', (req, res) => {
 });
 
 //Se crea un nueva partida cuando hay alguien en la sala de espera
-gamesRouter.post('/', (req, res) => {
+gamesRouter.post('/',middleware.includeTime, (req, res) => {
   res.send(`Start a new game with the data ${req.body}`);
+
+  console.log('impresion para saber que esta funcionando');
+  var response = ctrl.create(req, res);
 });
 
 //se asigna una articulación al usuario cuando ingresa a un juego

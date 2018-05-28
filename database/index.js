@@ -50,23 +50,27 @@ app.INSERT = function(table_name, columns, values, condition = null, returning =
 //   return resp;
 // }
 
-app.SELECT = function(table_name,columns,values=null, condition = null, returning = null)
-{
-  var sql = ``;
-  sql += `SELECT ${columns} FROM (${table_name})`;
-  if(condition !== null)
-    sql += ` WHERE ${condition}`;
 
-  console.log(sql);
-  connection.query(sql);
-  connection.end();
-
-  // if (!err)
-  //   console.log('The solution is: ', rows);
-  // else
-  //   console.log('Error while performing Query.');
-    console.log(sql);
-    return resp;
+app.SELECT = (table, columns, condition = null, callback) => {
+  let sql;
+  if(condition === null)
+  {
+    sql = `SELECT ${columns} FROM ${table};`;
+  }
+  else
+  {
+    sql = `SELECT ${columns} from ${table} WHERE ${condition};`;
+  }
+  connection.query(sql, (err, res) => {
+    if(err)
+    {
+      throw err;
+    }
+    else
+    {
+      callback(null, res);
+    }
+  })
 };
 
 module.exports = app;
