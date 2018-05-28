@@ -1,18 +1,6 @@
 const { Router } = require ('express');
 const db = require('../database');
 const usersModel = Router();
-// module.exports = class User
-// {
-//   constructor(userName, email, password)
-//   {
-//     /// falta programar :D
-//     this.userName = userName;
-//     this.email = email;
-//     this.password = password;
-//
-//     this db.insert();
-//   }
-// }
 
 usersModel.create = function(username, email, password) { //acomodar bien la funcion
   var age,gender,active,permisosChidos;
@@ -26,15 +14,14 @@ usersModel.create = function(username, email, password) { //acomodar bien la fun
   return response;
 };
 
-usersModel.listAll = function(){
-    var response = db.SELECT(`User`, //la tabla
-        `name`,// la columna
-        null, //no le pasamos ningun valor
-        null, //condicion
-        `*`); //returnung?
-        console.log("holi");
-      return response;
+usersModel.listAll = (req, res, callback) => {
+  let columns = 'idUser, name';//columnas a recuperar de la db
+  let condition = null;
+  db.SELECT('User', columns, condition, (err, data) => {
+  callback(err, data);
+  });
 };
+
 
 usersModel.getById = function(condition){
     var response = db.SELECT(`User`, //la tabla

@@ -21,11 +21,12 @@ usersController.create = function(req, res) {
   return response;
 };
 
-usersController.listAll = function(req, res) {
-  console.log('chuuuuuuuuuuuuu');
-  var response = model.listAll();
-  return response;
+usersController.listAll = (req, res, callback) => {
+  model.listAll(req, res, (err, data) => {
+  callback(err, data);
+  });
 };
+
 
 usersController.getById = function(req, res) {
   var response = model.getById(req.params.userId);
