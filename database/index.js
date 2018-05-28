@@ -34,7 +34,10 @@ app.INSERT = function(table_name, columns, values, condition = null, returning =
   const resp = connection.query(sql);
   //const resp = client.query(sql); //falta aqui ver como conectar a la base de
   console.log(sql);
+  console.log(resp);
+  connection.end();
   return resp;
+
 }
 
 // dbRouter.SELECT = function(table_name,columns,values=null, condition = null, returning = null)
@@ -53,19 +56,19 @@ app.INSERT = function(table_name, columns, values, condition = null, returning =
 app.SELECT = function(table_name,columns,values=null, condition = null, returning = null)
 {
   var sql = ``;
-  sql += `SELECT ${columns} FROM (${table_name})`;
+  sql += `SELECT ${columns} FROM ${table_name}`;
   if(condition !== null)
     sql += ` WHERE ${condition}`;
 
   console.log(sql);
-  connection.query(sql);
-  connection.end();
+  const resp = connection.query(sql);
+  // connection.end();
 
   // if (!err)
   //   console.log('The solution is: ', rows);
   // else
   //   console.log('Error while performing Query.');
-    console.log(sql);
+  console.log(resp);
     return resp;
 };
 

@@ -22,6 +22,7 @@ usersController.create = function(req, res) {
 };
 
 usersController.listAll = function(req, res) {
+  console.log('chuuuuuuuuuuuuu');
   var response = model.listAll();
   return response;
 };

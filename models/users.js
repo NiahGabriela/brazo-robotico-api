@@ -30,8 +30,8 @@ usersModel.listAll = function(){
     var response = db.SELECT(`User`, //la tabla
         `name`,// la columna
         null, //no le pasamos ningun valor
-        null,
-        `*`);
+        null, //condicion
+        `*`); //returnung?
         console.log("holi");
       return response;
 };
