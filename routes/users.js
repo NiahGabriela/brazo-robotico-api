@@ -8,17 +8,20 @@ usersRouter.get('/', (req, res, callback) => {
   ctrl.listAll(req, res, (err, data) => {
     res.json(data);
     console.log(data);
-    return data;
+    // return data;
     });
   //el response debe traer una lista de todos los usuarios que se encuentran en la tabla
 });
 
-//información de un usuario en especifico, para su perfil o para que el admin lo consulte
-usersRouter.get('/:userId', (req, res) => {
-  var response = ctrl.getById(req,res);
+// información de un usuario en especifico, para su perfil o para que el admin lo consulte
+usersRouter.get('/:userId', (req, res, callback) => {
+  ctrl.getById(req, res, (err, data) => {
+    res.json(data);
+    console.log(data);
   //la respuesta debe traer toda la info de un usuario que coincida con el id, el request debe trer el id desde el front
-  res.send(`This is the user ${req.params.userId}`);
+  });
 });
+
 
 //para que el usuario modifique sus datos o para que el admin lo pueda bloquear o desbloquear
 usersRouter.put('/:userId', (req, res) => {

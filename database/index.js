@@ -34,7 +34,6 @@ app.INSERT = function(table_name, columns, values, condition = null, returning =
   const resp = connection.query(sql);
   //const resp = client.query(sql); //falta aqui ver como conectar a la base de
   console.log(sql);
-  console.log(resp);
   connection.end();
   return resp;
 

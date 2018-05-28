@@ -1,20 +1,6 @@
 const { Router } = require ('express');
 const model = require ('../models/users');
 const usersController = Router();
-// module.exports = class UserCtrl
-// { // el req del routes users
-//   create (req)
-//   {
-//     let user = model(req);
-//     // y con esta variable ya haria lo que quisiera
-//   }
-//
-//   return
-//   {
-//     status: ok,
-//     res: user,
-//   }
-// }
 
 usersController.create = function(req, res) {
   var response = model.create(req.body.username,req.body.email,req.body.password);
@@ -28,9 +14,10 @@ usersController.listAll = (req, res, callback) => {
 };
 
 
-usersController.getById = function(req, res) {
-  var response = model.getById(req.params.userId);
-  return response;
+usersController.getById = (req, res, callback) => {
+  model.getById(req, res, (err, data) => {
+    callback(err, data);
+  });
 };
 
 // usersController.blockUser = function(req, res){
