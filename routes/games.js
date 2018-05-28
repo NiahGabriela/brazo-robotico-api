@@ -15,8 +15,11 @@ gamesRouter.get('/', (req, res, callback) => {
 });
 
 //De un juego en especifico para consulta del admin guapo
-gamesRouter.get('/:gameId', (req, res) => {
-  res.send(`This is the game ${req.params.gameId}`);
+gamesRouter.get('/:gameId', (req, res, callback) => {
+  ctrl.GetGame(req, res, (err, data) => {
+    res.json(data);
+    console.log(data);
+  });
 });
 
 //Todas las partidas de un usuario, devuelve para el usuario si gano o perdio, la fecha, compañeros
@@ -25,11 +28,11 @@ gamesRouter.get('/:userId', (req, res) => {
 });
 
 //Se crea un nueva partida cuando hay alguien en la sala de espera
-gamesRouter.post('/',middleware.includeTime, (req, res) => {
-  res.send(`Start a new game with the data ${req.body}`);
-
-  console.log('impresion para saber que esta funcionando');
-  var response = ctrl.create(req, res);
+gamesRouter.post('/', middleware.includeTime, (req, res, callback) => {
+  ctrl.CreateGame(req, res, (err, data) => {
+    // res.json(data);
+    // console.log(data);
+  });
 });
 
 //se asigna una articulación al usuario cuando ingresa a un juego
