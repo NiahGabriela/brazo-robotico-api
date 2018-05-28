@@ -40,20 +40,6 @@ app.INSERT = function(table_name, columns, values, condition = null, returning =
 }
 
 
-// dbRouter.SELECT = function(table_name,columns,values=null, condition = null, returning = null)
-// {
-//   var sql = ``;
-//   sql += `SELECT ${columns} FROM (${table_name})`;
-//   if(condition !== null)
-//     sql += ` WHERE ${condition}`;
-//   // if(returning !== null)
-//   //   sql += ` RETURNING ${returning}`;
-//   const resp = client.query(sql); //falta aqui ver como conectar a la base de datos ay que todavia no se como se hace eso
-//   console.log(sql);
-//   return resp;
-// }
-
-
 app.SELECT = (table, columns, condition = null, callback) => {
   let sql;
   if(condition === null)

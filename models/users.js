@@ -29,15 +29,6 @@ usersModel.getById = (req, res, callback) => {
   callback(err, data);
   });
 };
-// usersModel.getById = function(condition){
-//   console.log(condition);
-//     // var response = db.SELECT(`User`, //la tabla
-//     //     `name,age,gender,email`, // columnas de la base de la tabla que quiero recuperar
-//     //     null, //nada porque no le vamos a modificar nada
-//     //     `idUser = ${condition}`,
-//     //     `*`);
-//     //   return response;
-// };
 
 // usersModel.blockUser = function(condition,active){
 //   var response = db.UPDATE(`User`, //la tabla
