@@ -15,6 +15,39 @@ gamesModel.create = function(username, email, password) { //acomodar bien la fun
   return response;
 };
 
+gamesModel.InsertGame = (req, res, callback) => {
+  let idActualEstate = null;
+  let p1 = '1,1';
+  let p2 = '2,2';
+  let p3 = '3,3';
+  let objective = '5,5';
+  let time = req.myTime;
+
+  let gameLogId = null;
+  let timeLogs = req.myTime;
+  let idChat = null;
+
+  let columnsActualEstate = 'idActualEstate, p1, p2, p3, objective, time';
+  let valuesActualEstate = `${idActualEstate}, '${p1}', '${p2}', '${p3}', '${objective}', '${time}'`;
+
+  let condition = null;
+  database.INSERT('ActualEstate', columnsActualEstate, valuesActualEstate, condition);
+
+  database.SELECT('ActualEstate', 'max(idActualEstate) idActualEstate', condition, (err, data) => {
+    callback(err, data);
+    idActualEstate = data[0].idActualEstate;
+
+    console.log(idActualEstate);
+
+    let columnsGameLog = 'gameLogId, timeLogs, idChat, idActualEstate';
+    let valuesGameLog = `${gameLogId}, '${timeLogs}', ${idChat}, '${idActualEstate}'`;
+
+    database.INSERT('gameLog', columnsGameLog, valuesGameLog, condition);
+
+    res.send('Datos Cargados a la base de datos');
+  });
+};
+
 gamesModel.SelectGames = (req, res, callback) => {
   let columns = '*';
   let condition = null;
@@ -22,4 +55,13 @@ gamesModel.SelectGames = (req, res, callback) => {
   callback(err, data);
   });
 };
+
+gamesModel.SelectGameById = (req, res, callback) => {
+  let columns = '*';
+  let condition = 'gameLogId=\'' + req.params.gameId + '\'';
+  database.SELECT('gameLog', columns, condition, (err, data) => {
+  callback(err, data);
+  });
+};
+
 module.exports = gamesModel;
