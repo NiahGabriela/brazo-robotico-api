@@ -1,27 +1,36 @@
 // const { Router } = require('express');
 // const mysql = require('mysql');
 // const dbRouter = Router();
+
 var express    = require("express");
 var mysql      = require('mysql');
 var app = express();
 
+// var URL = 'mysql://b5030b66201a91:c21d10e4@us-cdbr-iron-east-04.cleardb.net/heroku_f509f2c2a6fe0c0?reconnect=true';
+// var clearDB = mysql.createConnection({
+//   host     : URL
+// });
+//var connection = mysql.createConnection('mysql://b5030b66201a91:c21d10e4@us-cdbr-iron-east-04.cleardb.net/heroku_f509f2c2a6fe0c0?reconnect=true');
+
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'pollo',
-  password : 'Don$hirito80',
-  database : 'mydb'
+  host     : 'us-cdbr-iron-east-04.cleardb.net',
+  user     : 'b5030b66201a91',
+  password : 'c21d10e4',
+  database : 'heroku_f509f2c2a6fe0c0'
 });
 
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
+setInterval(function () {
+    connection.query('SELECT 1');
+}, 5000);
+// aqui solo van las peticiones a la base de
 
-  //console.log('connected as id ' + connection.threadId);
+connection.connect((err) => {
+  if(err)
+    console.error(err);
+  else
+    console.log('Database Connected');
 });
 
-// aqui solo van las peticiones a la base de datos
 
 app.INSERT = function(table_name, columns, values, condition = null, returning = null) {
   var sql = ``;
