@@ -43,9 +43,42 @@ gamesModel.InsertGame = (req, res, callback) => {
     let valuesGameLog = `${gameLogId}, '${timeLogs}', ${idChat}, '${idActualEstate}'`;
 
     database.INSERT('gameLog', columnsGameLog, valuesGameLog, condition);
-
-    res.send('Datos Cargados a la base de datos');
   });
+};
+
+gamesModel.InsertTeam = (req, res, callback) => {
+  let idTeam = null;
+  let score = '0';
+  let player = req.params.player;
+  let gameLogId = req.params.gameLogId;
+
+  let columnsTeam = 'idTeam, score, player, gameLogId';
+  let valuesTeam = `${idTeam}, '${score}', '${player}', '${gameLogId}'`;
+
+  let condition = null;
+  database.INSERT('Team', columnsTeam, valuesTeam, condition);
+
+  database.SELECT('Team', 'max(idTeam) idTeam', condition, (err, data) => {
+    callback(err, data);
+
+    console.log(data[0].idTeam);
+
+    let joint = data[0].idTeam;
+    let idUser = req.params.player;
+    let columnsJoint = 'joint, idUser';
+    let valuesJoint = `'${joint}', '${idUser}'`;
+
+    database.INSERT('joint', columnsJoint, valuesJoint, condition);
+  });
+  res.send('Team cargado a la base de datos');
+};
+
+gamesModel.UpdateScore = function(req, res) {
+
+  let attributeValue = `score='${req.params.score}'`;
+  let condition = `idTeam='${req.params.idTeam}'`;
+  database.UPDATE('Team', attributeValue, condition);
+  res.send(`Nuevo score ${req.params.score} actualizado en la base de datos`);
 };
 
 gamesModel.SelectGames = (req, res, callback) => {

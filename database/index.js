@@ -59,7 +59,12 @@ app.SELECT = (table, columns, condition = null, callback) => {
     {
       callback(null, res);
     }
-  })
+  });
+};
+
+app.UPDATE = function(table, attributeValue, condition) {
+  let sql = `UPDATE ${table} SET ${attributeValue} WHERE ${condition};`;
+  connection.query(sql);
 };
 
 module.exports = app;
