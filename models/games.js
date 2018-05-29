@@ -3,18 +3,6 @@ const database = require('../database');
 const gamesModel = Router();
 
 
-gamesModel.create = function(username, email, password) { //acomodar bien la funcion
-  var age,gender,active,permisosChidos;
-  age=15; gender="F"; active=1; permisosChidos=0; //para hacer insert de los datos nulos la DB se queja si los dejas en nulos por eso tiene
-  //valores por defecto que parecen reales
-  var response = databases.INSERT(`User`, //nombre de la base de datos
-  `name,age,gender,email,active,permisosChidos,password`, // columnas de la base de la tabla
-  `\'${username}\',\'${age}\',\'${gender}\',\'${email}\',\'${active}\',\'${permisosChidos}\',\'${password}\'`, //valores para rellenar
-  null,
-  `*`);
-  return response;
-};
-
 gamesModel.InsertGame = (req, res, callback) => {
   let idActualEstate = null;
   let p1 = '1,1';
@@ -96,5 +84,17 @@ gamesModel.SelectGameById = (req, res, callback) => {
   callback(err, data);
   });
 };
+//FALTA ==============================================================================================
+gamesModel.SelectGamesByUser = (req, res, callback) => {
+  let columns = '*';
+  let condition = 'player=\'' + req.params.userId + '\'';
+  let view = 'games';
+  database.VIEW('Team', view, columns, condition);
 
+  let using = 'gameLogId';
+  database.SELECTINNERJOIN('games', columns, 'gameLog', using, (err, data) => {
+  callback(err, data);
+  });
+};
+//FALTA ==============================================================================================
 module.exports = gamesModel;
