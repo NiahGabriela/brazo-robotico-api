@@ -33,7 +33,6 @@ gamesRouter.get('/team/:userId', (req, res, callback) => {
 //Se crea un nueva partida cuando hay alguien en la sala de espera
 gamesRouter.post('/', middleware.includeTime, (req, res, callback) => {
   ctrl.CreateGame(req, res, (err, data) => {
-    res.send('Game cargado a la base de datos');
   });
 });
 

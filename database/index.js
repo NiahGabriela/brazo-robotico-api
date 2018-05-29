@@ -59,7 +59,7 @@ app.SELECT = (table, columns, condition = null, callback) => {
     {
       callback(null, res);
     }
-  });
+  })
 };
 
 app.SELECTINNERJOIN = (table, columns, join, using, callback) => {

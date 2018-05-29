@@ -32,6 +32,7 @@ gamesModel.InsertGame = (req, res, callback) => {
 
     database.INSERT('gameLog', columnsGameLog, valuesGameLog, condition);
   });
+    res.send('Game cargado a la base de datos');
 };
 
 gamesModel.InsertTeam = (req, res, callback) => {
