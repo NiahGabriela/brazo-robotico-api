@@ -14,6 +14,12 @@ gameController.GetGame = (req, res, callback) => {
   });
 };
 
+gameController.GetUsersGames = (req, res, callback) => {
+  model.SelectGamesByUser(req, res, (err, data) => {
+  callback(err, data);
+  });
+};
+
 gameController.CreateGame = function(req, res) {
   model.InsertGame(req, res);
 };

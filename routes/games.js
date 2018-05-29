@@ -23,8 +23,11 @@ gamesRouter.get('/:gameId', (req, res, callback) => {
 });
 //FALTA ==============================================================================================
 //Todas las partidas de un usuario, devuelve para el usuario si gano o perdio, la fecha, compañeros
-gamesRouter.get('/:userId', (req, res) => {
-  res.send(`This are the game from user ${req.params.userId}`);
+gamesRouter.get('/team/:userId', (req, res, callback) => {
+  ctrl.GetUsersGames(req, res, (err, data) => {
+    res.json(data);
+    console.log(data);
+  });
 });
 //FALTA ==============================================================================================
 //Se crea un nueva partida cuando hay alguien en la sala de espera
