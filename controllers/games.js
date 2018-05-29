@@ -20,8 +20,10 @@ gameController.GetUsersGames = (req, res, callback) => {
   });
 };
 
-gameController.CreateGame = function(req, res) {
-  model.InsertGame(req, res);
+gameController.CreateGame = (req, res, callback) => {
+  model.InsertGame(req, res, (err, data) => {
+    callback(err, data);
+  });
 };
 
 gameController.CreateTeam = (req, res, callback) => {
