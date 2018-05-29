@@ -3,18 +3,6 @@ const database = require('../database');
 const gamesModel = Router();
 
 
-gamesModel.create = function(username, email, password) { //acomodar bien la funcion
-  var age,gender,active,permisosChidos;
-  age=15; gender="F"; active=1; permisosChidos=0; //para hacer insert de los datos nulos la DB se queja si los dejas en nulos por eso tiene
-  //valores por defecto que parecen reales
-  var response = databases.INSERT(`User`, //nombre de la base de datos
-  `name,age,gender,email,active,permisosChidos,password`, // columnas de la base de la tabla
-  `\'${username}\',\'${age}\',\'${gender}\',\'${email}\',\'${active}\',\'${permisosChidos}\',\'${password}\'`, //valores para rellenar
-  null,
-  `*`);
-  return response;
-};
-
 gamesModel.InsertGame = (req, res, callback) => {
   let idActualEstate = null;
   let p1 = '1,1';
@@ -43,9 +31,42 @@ gamesModel.InsertGame = (req, res, callback) => {
     let valuesGameLog = `${gameLogId}, '${timeLogs}', ${idChat}, '${idActualEstate}'`;
 
     database.INSERT('gameLog', columnsGameLog, valuesGameLog, condition);
-
-    res.send('Datos Cargados a la base de datos');
   });
+};
+
+gamesModel.InsertTeam = (req, res, callback) => {
+  let idTeam = null;
+  let score = '0';
+  let player = req.params.player;
+  let gameLogId = req.params.gameLogId;
+
+  let columnsTeam = 'idTeam, score, player, gameLogId';
+  let valuesTeam = `${idTeam}, '${score}', '${player}', '${gameLogId}'`;
+
+  let condition = null;
+  database.INSERT('Team', columnsTeam, valuesTeam, condition);
+
+  database.SELECT('Team', 'max(idTeam) idTeam', condition, (err, data) => {
+    callback(err, data);
+
+    console.log(data[0].idTeam);
+
+    let joint = data[0].idTeam;
+    let idUser = req.params.player;
+    let columnsJoint = 'joint, idUser';
+    let valuesJoint = `'${joint}', '${idUser}'`;
+
+    database.INSERT('joint', columnsJoint, valuesJoint, condition);
+  });
+  res.send('Team cargado a la base de datos');
+};
+
+gamesModel.UpdateScore = function(req, res) {
+
+  let attributeValue = `score='${req.params.score}'`;
+  let condition = `idTeam='${req.params.idTeam}'`;
+  database.UPDATE('Team', attributeValue, condition);
+  res.send(`Nuevo score ${req.params.score} actualizado en la base de datos`);
 };
 
 gamesModel.SelectGames = (req, res, callback) => {
@@ -63,5 +84,17 @@ gamesModel.SelectGameById = (req, res, callback) => {
   callback(err, data);
   });
 };
+//FALTA ==============================================================================================
+gamesModel.SelectGamesByUser = (req, res, callback) => {
+  let columns = '*';
+  let condition = 'player=\'' + req.params.userId + '\'';
+  let view = 'games';
+  database.VIEW('Team', view, columns, condition);
 
+  let using = 'gameLogId';
+  database.SELECTINNERJOIN('games', columns, 'gameLog', using, (err, data) => {
+  callback(err, data);
+  });
+};
+//FALTA ==============================================================================================
 module.exports = gamesModel;

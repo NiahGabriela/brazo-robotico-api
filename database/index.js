@@ -68,7 +68,33 @@ app.SELECT = (table, columns, condition = null, callback) => {
     {
       callback(null, res);
     }
-  })
+  });
+};
+
+app.SELECTINNERJOIN = (table, columns, join, using, callback) => {
+  let sql;
+  sql = `SELECT ${columns} from ${table} INNER JOIN ${join} USING (${using});`;
+  connection.query(sql, (err, res) => {
+    if(err)
+    {
+      throw err;
+    }
+    else
+    {
+      callback(null, res);
+    }
+  });
+};
+
+app.UPDATE = function(table, attributeValue, condition) {
+  let sql = `UPDATE ${table} SET ${attributeValue} WHERE ${condition};`;
+  connection.query(sql);
+};
+
+app.VIEW = function(table, view, columns, condition){
+  let sql = `CREATE OR REPLACE VIEW ${view} AS SELECT
+    ${columns} FROM ${table} WHERE ${condition};`;
+    connection.query(sql);
 };
 
 module.exports = app;
